@@ -10,6 +10,16 @@ const UserAPI = require("./datasources/user");
 const store = createStore();
 
 const server = new ApolloServer({
+  /**
+   * The context function defined below is called once for every
+   * GraphQL operation that clients send to our server. The return
+   * value of this function becomes the context argument that's
+   * passed to every resolver that runs as part of that operation.
+   *
+   * By creating this context object at the beginning of each operation's execution,
+   * all of our resolvers can access the details for the logged-in user and perform
+   * actions specifically for that user.
+   */
   context: async ({ req }) => {
     // simple auth check on every request
     const auth = (req.headers && req.headers.authorization) || "";
